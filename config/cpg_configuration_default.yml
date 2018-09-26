@@ -1,0 +1,65 @@
+mongo:
+  host: 127.0.0.1
+  port: 27017
+  user: cpg_user
+  password: read_manual
+  auth_source: cpg
+  database: cpg
+  max_pool_size: 5
+
+electrum:
+  host: localhost
+  port: 8001
+
+api_key: KBMwMKJ748JH5v0CTHJ71Q
+notifications_secret: '5ET4lEfvKLHcWOo3DyWgJodPFZG9udptq8cDzgyYPaFWILZOEWV+FjvQ60jVsCBoIzkz//Tp99joFo0S0cF1ig'
+
+coin: BitcoinSegwit
+net: testnet
+wallet_pubkey: 'tpubD6NzVbkrYhZ4YL6dhHL6VbdpriQMVMqe5z9o7w9G4RRBf5UtisV4XTCnMuZkULzdGGhGoaNmJAyJcQafZXutLqEsW7BCCJv3X7eXwDxQZQK'
+confirmations_required: 6
+
+job_settings:
+  scheduler_enabled: False
+
+  sync_tx_outputs:
+    enabled: True
+    interval: 10
+    accounts_batch_size: 100
+  send_notifications:
+    enabled: True
+    interval: 10
+    notifications_batch_size: 20
+    request_timeout: 20
+    max_attempts: 10
+    retry_after: 5
+
+indexes:
+  management_enabled: True
+
+  collections:
+    accounts:
+      - address: asc
+    tx_outputs:
+      - tx_id: asc
+        tx_hash: asc
+        unique: true
+    notifications:
+      - tx_id: asc
+
+
+logging:
+  version: 1
+  formatters:
+    default:
+      format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  handlers:
+    console:
+        class: logging.StreamHandler
+        level: DEBUG
+        formatter: default
+  loggers:
+    '':
+      level: DEBUG
+      handlers: [console]
+      propagate: no

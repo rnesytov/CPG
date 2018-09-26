@@ -1,0 +1,31 @@
+mongo:
+  database: "bpg_test"
+
+api_key: KBMwMKJ748JH5v0CTHJ71Q
+notifications_secret: '5ET4lEfvKLHcWOo3DyWgJodPFZG9udptq8cDzgyYPaFWILZOEWV+FjvQ60jVsCBoIzkz//Tp99joFo0S0cF1ig'
+
+coin: BitcoinSegwit
+net: testnet
+wallet_pubkey: 'tpubD6NzVbkrYhZ4YL6dhHL6VbdpriQMVMqe5z9o7w9G4RRBf5UtisV4XTCnMuZkULzdGGhGoaNmJAyJcQafZXutLqEsW7BCCJv3X7eXwDxQZQK'
+
+job_settings:
+  scheduler_enabled: False
+
+  send_notifications:
+    request_timeout: 3
+    retry_after: 15
+
+indexes:
+  enabled: true
+
+  collections:
+    accounts:
+      - address: asc
+    tx_outputs:
+      - tx_id: asc
+        tx_hash: asc
+        unique: true
+    notifications:
+      - tx_id: asc
+      - created_at: asc
+        sparse: true

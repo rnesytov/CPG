@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:4
+    command: --smallfiles
+    container_name: "mongo"
+    restart: always
+    volumes:
+      - db_data:/data/db
+      - ${PWD}/setup_mongo.js:/docker-entrypoint-initdb.d/setup_mongo.js
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=read_manual
+      - MONGO_INITDB_DATABASE=cpg
+
+  gateway:
+    image: gateway:latest
+    container_name: gateway
+    depends_on:
+      - mongo
+    volumes:
+      - ${PWD}/cpg_configuration.yml:/etc/cpg/cpg_configuration.yml
+    environment:
+      - CPG_CONFIG_PATH=/etc/cpg/
+
+volumes:
+  db_data:

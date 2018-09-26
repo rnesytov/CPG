@@ -1,0 +1,30 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+aiohttp = "*"
+motor = "*"
+pyyaml = "*"
+electrumx = "*"
+pip = "*"
+attrdict = "*"
+ecdsa = "*"
+paco = {editable = true, git = "https://github.com/OnGridSystems/paco.git"}
+apscheduler = "*"
+aiorpcx = "*"
+
+[dev-packages]
+pylint = "*"
+pytest-aiohttp = "*"
+aiohttp-devtools = "*"
+freezegun = "*"
+flake8 = "*"
+ipython = "==6.5.0"
+ipdb = "*"
+coveralls = "*"
+yapf = "*"
+
+[requires]
+python_version = "3.7"
