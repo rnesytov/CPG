@@ -1,5 +1,0 @@
-mongo:
-  host: mongo
-  port: 27017
-  database: "cpg"
-  max_pool_size: 5
