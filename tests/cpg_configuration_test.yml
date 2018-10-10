@@ -1,5 +1,5 @@
 mongo:
-  database: "bpg_test"
+  database: "cpg_test"
 
 api_key: KBMwMKJ748JH5v0CTHJ71Q
 notifications_secret: '5ET4lEfvKLHcWOo3DyWgJodPFZG9udptq8cDzgyYPaFWILZOEWV+FjvQ60jVsCBoIzkz//Tp99joFo0S0cF1ig'

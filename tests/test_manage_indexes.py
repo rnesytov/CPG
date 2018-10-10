@@ -8,30 +8,30 @@ async def test_manage_indexes(app):
         '_id_': {
             'v': 2,
             'key': [('_id', 1)],
-            'ns': 'bpg_test.accounts'
+            'ns': 'cpg_test.accounts'
         },
         'address_1': {
             'v': 2,
             'key': [('address', 1)],
-            'ns': 'bpg_test.accounts',
+            'ns': 'cpg_test.accounts',
         }
     }
 
     assert await app.mongo.notifications.index_information() == {
         '_id_': {
             'key': [('_id', 1)],
-            'ns': 'bpg_test.notifications',
+            'ns': 'cpg_test.notifications',
             'v': 2,
         },
         'created_at_1': {
             'key': [('created_at', 1)],
-            'ns': 'bpg_test.notifications',
+            'ns': 'cpg_test.notifications',
             'v': 2,
             'sparse': True
         },
         'tx_id_1': {
             'key': [('tx_id', 1)],
-            'ns': 'bpg_test.notifications',
+            'ns': 'cpg_test.notifications',
             'v': 2,
         }
     }
@@ -39,12 +39,12 @@ async def test_manage_indexes(app):
     assert await app.mongo.tx_outputs.index_information() == {
         '_id_': {
             'key': [('_id', 1)],
-            'ns': 'bpg_test.tx_outputs',
+            'ns': 'cpg_test.tx_outputs',
             'v': 2,
         },
         'tx_id_1_tx_hash_1': {
             'key': [('tx_id', 1), ('tx_hash', 1)],
-            'ns': 'bpg_test.tx_outputs',
+            'ns': 'cpg_test.tx_outputs',
             'v': 2,
             'unique': True
         }
