@@ -23,6 +23,8 @@ services:
       - ${PWD}/cpg_configuration.yml:/etc/cpg/cpg_configuration.yml
     environment:
       - CPG_CONFIG_PATH=/etc/cpg/
+    ports:
+      - "8080:8080"
 
 volumes:
   db_data:
