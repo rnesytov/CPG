@@ -4,6 +4,7 @@ import hashlib
 import aiohttp
 import paco
 
+from collections import OrderedDict
 from datetime import timedelta, datetime
 from urllib.parse import urlencode
 
@@ -16,8 +17,9 @@ class SendNotifications(Job):
 
     def build_payload(self, notification):
         data = dict(tx_id=notification.tx_id, code=notification.code, **notification.txn_data)
+        sorted_data = OrderedDict(sorted(data.items()))
 
-        return urlencode(data).encode('utf8')
+        return urlencode(sorted_data).encode('utf8')
 
     def build_signature(self, payload):
         secret = self.app.config.notifications_secret.encode('utf8')

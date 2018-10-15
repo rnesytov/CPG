@@ -97,8 +97,8 @@ async def test_successful_send(app, notifications_handler, notifications_url):
             'confirmations': '6',
             'value': '0.39654376'
         },
-        signature='683024d5df432da32291bd5ded2e38cf9bc803e54566c6154269845ed960c564'
-                  '342e1b8b9c9131542143d497655d8d98c5b37c20b759907bec0841e1c1017e3e',
+        signature='e9d9b8dd920acb8bc3cb6878f15e178569aff0e66b9545bd6d64f77e3ff27568'
+                  '0a6462f93ef8b5bbf1ea06fba9b68f6d8d97de3a3218049ae0236daff52a5e0f',
         response_status=200,
         response_body='OK')
 
@@ -139,8 +139,8 @@ async def test_invalid_status_code(app, notifications_handler, notifications_url
             'confirmations': '6',
             'value': '0.39654376'
         },
-        signature='683024d5df432da32291bd5ded2e38cf9bc803e54566c6154269845ed960c564'
-                  '342e1b8b9c9131542143d497655d8d98c5b37c20b759907bec0841e1c1017e3e',
+        signature='e9d9b8dd920acb8bc3cb6878f15e178569aff0e66b9545bd6d64f77e3ff27568'
+                  '0a6462f93ef8b5bbf1ea06fba9b68f6d8d97de3a3218049ae0236daff52a5e0f',
         response_status=500,
         response_body='Server error')
 
@@ -187,8 +187,8 @@ async def test_request_timeout(app, notifications_handler, notifications_url):
             'confirmations': '6',
             'value': '0.39654376'
         },
-        signature='683024d5df432da32291bd5ded2e38cf9bc803e54566c6154269845ed960c564'
-                  '342e1b8b9c9131542143d497655d8d98c5b37c20b759907bec0841e1c1017e3e',
+        signature='e9d9b8dd920acb8bc3cb6878f15e178569aff0e66b9545bd6d64f77e3ff27568'
+                  '0a6462f93ef8b5bbf1ea06fba9b68f6d8d97de3a3218049ae0236daff52a5e0f',
         response_status=200,
         response_body='OK',
         timeout=5)
