@@ -63,7 +63,7 @@ class SendNotifications(Job):
         notification = await self.app.notifications_repo.find_one({'_id': raw_notification['id']})
 
         payload = self.build_payload(notification)
-        headers = {'CPG_SIGN': self.build_signature(payload),
+        headers = {'HMAC': self.build_signature(payload),
                    'Content-Type': 'application/x-www-form-urlencoded'}
         timeout = aiohttp.ClientTimeout(total=self.job_settings.request_timeout)
 

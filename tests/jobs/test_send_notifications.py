@@ -24,7 +24,7 @@ class NotificationHandler:
 
     async def _find_stub(self, request):
         data = await request.post()
-        signature = request.headers.get('CPG_SIGN')
+        signature = request.headers.get('HMAC')
 
         for stub in self._stubs:
             if data and data == stub.data and signature and signature == stub.signature:
