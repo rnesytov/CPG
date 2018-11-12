@@ -10,6 +10,7 @@ class Account(Struct):
     notify_url: str
     child_id: str
     sync: bool
+    last_txn_at: datetime
 
     @classmethod
     def from_kwargs(cls, **kwargs):
@@ -19,7 +20,8 @@ class Account(Struct):
             'created_at': datetime.utcnow(),
             'notify_url': None,
             'path': None,
-            'sync': True
+            'sync': True,
+            'last_txn_at': datetime.utcnow()
         }
 
         attributes.update(kwargs)

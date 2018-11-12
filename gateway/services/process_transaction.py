@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from gateway.structs import Notification, TxOutput
 
 
@@ -43,10 +45,15 @@ class ProcessTransaction:
 
             await self.app.notifications_repo.save(notification)
 
+    async def update_account(self, account):
+        account.last_txn_at = datetime.now()
+        await self.app.accounts_repo.save(account)
+
     async def __call__(self, vout, transaction, account):
         tx_output, new_or_modified = await self.create_or_update_tx_output(vout, transaction, account)
 
         if new_or_modified:
             notification = await self.create_notification(tx_output, account)
+            await self.update_account(account)
 
             return {'tx_output': tx_output, 'notification': notification}
