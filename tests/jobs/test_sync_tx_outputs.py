@@ -1,7 +1,7 @@
 # pylint: disable=redefined-outer-name
 import pytest
 from unittest import mock
-from datetime import datetime
+from datetime import datetime, timedelta
 from freezegun import freeze_time
 from tests.jobs.conftest import ElectrumxSessionStub
 from gateway.jobs import SyncTxOutputs
@@ -320,3 +320,40 @@ async def test_hundred_confirmations(app, list_unspent_response, transaction_res
         'url': 'localhost:8080/notify',
         'failures': []
     }
+
+
+@freeze_time('2018-09-01')
+@pytest.mark.usefixtures('electrumx_server')
+async def test_update_accounts_last_txn_at(app, list_unspent_response, transaction_response):
+    await app.tx_outputs_repo.save(TxOutput({
+        'block_hash': '000000004c3604d758cba41c30c1f2be2ffa3e730a3017ded08078dc422a614e',
+        'blocktime': 1536681241,
+        'confirmations': 0,
+        'locktime': 1412987,
+        'position': 1,
+        'tx_hash': '5f7d66d9f36dacf150320bedd35d2f601754a31be78ccc7b6be795ed8a518b46',
+        'tx_id': '25705000a564b7852947faa1fea2987143410bb3ada53458b6eead67e7469d60',
+        'address': 'mwHHRbLcC394T7vsLQZVh8FsB3QkDNRKK9',
+        'value': 0.39654376
+    }))
+    acc = Account.from_kwargs(address='mwHHRbLcC394T7vsLQZVh8FsB3QkDNRKK9',
+                              notify_url='localhost:8080/notify',
+                              last_txn_at=datetime.now() - timedelta(days=6))
+
+    account = await app.accounts_repo.save(acc)
+
+    ElectrumxSessionStub.stub_server_version()
+    ElectrumxSessionStub.stub_request('blockchain.scripthash.listunspent',
+                                      ['da22c9488b0d4828b4bc96ad6ff41c274bc9e1632482673cc4c07a0a1a8fcebc'],
+                                      list_unspent_response)
+    ElectrumxSessionStub.stub_request('blockchain.transaction.get',
+                                      ['25705000a564b7852947faa1fea2987143410bb3ada53458b6eead67e7469d60', True],
+                                      transaction_response)
+
+    await SyncTxOutputs(app=app)()
+
+    assert await app.tx_outputs_repo.count() == 1
+    assert await app.accounts_repo.count() == 1
+
+    account = await app.accounts_repo.find_one({'_id': account.id})
+    assert account.last_txn_at == datetime.now()

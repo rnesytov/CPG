@@ -32,7 +32,8 @@ async def test_get_address(app, client_w_token):
         'created_at': datetime.utcnow(),
         'notify_url': 'http://localhost:80/notify',
         'child_id': 1,
-        'sync': True
+        'sync': True,
+        'last_txn_at': datetime.utcnow()
     }
 
 

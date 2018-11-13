@@ -33,6 +33,11 @@ job_settings:
     request_timeout: 20
     max_attempts: 10
     retry_after: 5
+  deactivate_unused_accounts:
+    enabled: True
+    interval: 10
+    accounts_batch_size: 100
+    days_for_unused_accounts_to_exist: 5
 
 indexes:
   management_enabled: True
